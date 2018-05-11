@@ -1,0 +1,19 @@
+sudo: required
+language: ruby
+rvm:
+  - 2.3.4
+branches:
+  only:
+  - master
+install:
+  - bundle install
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - RAILS_ENV=test bundle exec rake
+  - git clone https://github.com/RisingAppSense/Timesheet
+  - cd ecs-ci
+  - "./build.sh"
+group: stable
+dist: trusty
+os: linux
